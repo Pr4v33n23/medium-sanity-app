@@ -5,7 +5,7 @@ import logo from '../public/medium-logo.jpg'
 
 export const Header: React.FC = () => {
   return (
-    <header className="mx-auto flex max-w-7xl justify-between p-5">
+    <header className="flex max-w-7xl justify-between p-5 mx-auto">
       <div className="flex items-center space-x-5">
         <Link href="/post">
           <a>
@@ -27,9 +27,9 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex items-center space-x-5 text-green-600 hover:text-green-700">
+      <div className="flex items-center space-x-5 text-green-600">
         <h3>Sign in</h3>
-        <h3 className="rounded-full border border-green-600 py-1 px-4">
+        <h3 className="border border-green-600  rounded-full px-4 py-1">
           Get Started
         </h3>
       </div>
