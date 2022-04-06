@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
   return (
     <header className="flex max-w-7xl justify-between p-5 mx-auto">
       <div className="flex items-center space-x-5">
-        <Link href="/post">
+        <Link href="/">
           <a>
             <Image
               className="cursor-pointer object-contain"
