@@ -1,8 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 import { Header } from '../../components/Header'
-import { sanityClient } from '../../sanity'
+import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
+import PortableText from 'react-portable-text'
 
 interface Props {
   post: Post
@@ -12,6 +13,68 @@ function Post({ post }: Props) {
   return (
     <main>
       <Header />
+      <img
+        className="h-40 w-full object-cover"
+        src={urlFor(post.mainImage).url()}
+      />
+      <article className="mx-auto max-w-3xl p-5">
+        <h1 className="mt-10 mb-3 text-3xl">{post.title}</h1>
+        <h2 className="mb-2 text-xl font-light text-gray-500">
+          {post.description}
+        </h2>
+        <div className="flex items-center space-x-2">
+          <img
+            className="h-10 w-10 rounded-full"
+            src={urlFor(post.author.image).url()!}
+            alt=""
+          />
+          <p className="text-sm font-extralight">
+            Blog post by{' '}
+            <span className="text-green-500">{post.author.name}</span> -
+            Published at {new Date(post._createdAt).toLocaleString()}
+          </p>
+        </div>
+        <div>
+          <PortableText
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+            content={post.body}
+            serializers={{
+              h1: (props: any) => {
+                return <h1 className="my-5 text-2xl font-bold" {...props} />
+              },
+              h2: (props: any) => (
+                <h1 className="my-5 text-xl font-bold" {...props} />
+              ),
+              h3: (props: any) => (
+                <h1 className="my-5 text-lg font-bold" {...props} />
+              ),
+              h4: (props: any) => (
+                <h1 className="my-2 text-base font-bold" {...props} />
+              ),
+              p: (props: any) => <h1 className="my-2  text-base" {...props} />,
+              image: (props: any) => (
+                <img
+                  src={urlFor(props.asset._ref).url()!}
+                  className="my-10 w-full"
+                  {...props}
+                />
+              ),
+              normal: (props: any) => {
+                return <p className={`my-2 text-base `} {...props} />
+              },
+              li: ({ children }: any) => (
+                <li className="ml-4 list-disc">{children}</li>
+              ),
+              link: ({ href, children }: any) => (
+                <a href={href} className="text-blue-500 hover:underline">
+                  {children}
+                </a>
+              ),
+            }}
+          />
+        </div>
+      </article>
     </main>
   )
 }
@@ -20,11 +83,11 @@ export default Post
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const query = `*[_type == "post"]{
-        _id,
-        slug{
-        current
-        }
-      }`
+    _id,
+    slug{
+      current
+    }
+  }`
 
   const posts = await sanityClient.fetch(query)
 
