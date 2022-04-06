@@ -1,3 +1,21 @@
+# Things I learnt from this project
+
+Sanity.io -> a powerful content management system with minimal configuration and easy to use. 
+we create a sanity project and have the config and schema defined for our content and use it with our front end application
+
+react-form-hook
+helps us to use the native form much more flexible and verstile to use
+
+more tailwind css
+this is my 3rd project using tailwindcss, already in so much leave with it.
+
+ISR -> incremental static regeneration
+a powerful static site regeneration plugged in with nextjs to serve static pages and rerender the contents to dynamically based on the options that we set. this is useful for static sites with contents that are modified. 
+
+Route -> basic and dynamic routing with Nextjs
+since we are using blogs and they are dynamic we are using dynamic routing with the help of Sanity.io
+
+
 # Next.js + Tailwind CSS Example
 
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
